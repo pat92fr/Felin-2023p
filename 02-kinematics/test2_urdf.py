@@ -13,20 +13,35 @@ with open('./felin.urdf', "r") as f:
 for joint in tm._joints.keys():
 	print(joint)
 
-tm.set_joint("FR-ABD",  3 * np.pi / 180.0)
-tm.set_joint("RR-ABD",  3 * np.pi / 180.0)
-tm.set_joint("FL-ABD", -3 * np.pi / 180.0)
-tm.set_joint("RL-ABD", -3 * np.pi / 180.0)
+joint_position = np.radians(np.array(
+    [   #   FR,   FL,   RR,   RL
+        [  0.0,  0.0, 25.0,-15.0], # hips abduction revolute joints
+        [180.0, 90.0,125.0,180.0], # hips flexion/extension revolute joints
+        [ 90.0, 90.0, 45.0,170.0]  # knee flexion/extension revolute joints
+    ]
+))
 
-tm.set_joint("FR-HIPS", 145 * np.pi / 180.0)
-tm.set_joint("RR-HIPS", 145 * np.pi / 180.0)
-tm.set_joint("FL-HIPS", 145 * np.pi / 180.0)
-tm.set_joint("RL-HIPS", 145 * np.pi / 180.0)
+tm.set_joint("FR-ABD", joint_position[0,0])
+tm.set_joint("FL-ABD", joint_position[0,1])
+tm.set_joint("RR-ABD", joint_position[0,2])
+tm.set_joint("RL-ABD", joint_position[0,3])
 
-tm.set_joint("FR-KNEE",  85 * np.pi / 180.0)
-tm.set_joint("RR-KNEE",  85 * np.pi / 180.0)
-tm.set_joint("FL-KNEE",  85 * np.pi / 180.0)
-tm.set_joint("RL-KNEE",  85 * np.pi / 180.0)
+tm.set_joint("FR-HIPS", joint_position[1,0])
+tm.set_joint("FL-HIPS", joint_position[1,1])
+tm.set_joint("RR-HIPS", joint_position[1,2])
+tm.set_joint("RL-HIPS", joint_position[1,3])
+
+tm.set_joint("FR-KNEE", joint_position[2,0])
+tm.set_joint("FL-KNEE", joint_position[2,1])
+tm.set_joint("RR-KNEE", joint_position[2,2])
+tm.set_joint("RL-KNEE", joint_position[2,3])
+
+legs = ["FR","FL","RR","RL"]
+feet_BRF = np.zeros((3,4))
+for leg_index in range(4):
+	feet_BRF[:,leg_index] = tm.get_transform('%s-foot' % legs[leg_index], 'body-base')[0:3,3]
+print("feet_BRF:\n\n"+str(np.round(feet_BRF,3))+"\n")
+
 
 fig = plt.figure()
 ax = fig.add_subplot(projection='3d')
