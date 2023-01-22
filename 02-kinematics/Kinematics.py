@@ -15,6 +15,13 @@ def log(s):
 
 ##DEBUG #######################################################################
 
+# Constant Rotation from BRF to LRF reference frame
+R_BRF_to_LRF = np.array([
+        [0,0,1],
+        [0,1,0],
+        [-1,0,0]
+    ])
+
 
 def leg_forward_kinematics_LRF(joint_position, leg_index, config):
     """Find the foot position in the Leg Reference Frame
@@ -87,6 +94,39 @@ def four_legs_forward_kinematics_LRF(joint_position, config):
         feet_position_LRF[:,i] = leg_forward_kinematics_LRF(joint_position[:,i],i,config)
     return feet_position_LRF
 
+
+def four_legs_forward_kinematics_BRF(joint_position, config):
+    """Find the position of the four feet in the Body Reference Frame
+
+    BRF : centered body, X forward, Y leftward, Z upward for all leg
+
+    Parameters
+    ----------
+    joint_position : numpy array (3x4) 
+        Array of the joint angles of four legs
+        [0,i] hips abduction revolute joint in RADIANS
+        [1,i] hips flexion/extension revolute joint in RADIANS
+        [2,i] knee flexion/extension revolute joint in RADIANS
+    where i is the leg_index :
+        0: Front Right
+        1: Front Left
+        2: Read Right
+        3: Rear Left
+    config : [type]
+        [description]
+
+    Returns
+    -------
+    numpy array (3x4)
+        Array of corresponding foot positions in Body Reference Frame
+        [X,Y,Z] in LRF
+    """    
+    feet_position_BRF = np.zeros((3,4))
+    # for each leg
+    for i in range(4):
+        feet_position_LRF = leg_forward_kinematics_LRF(joint_position[:,i],i,config)
+        feet_position_BRF[:,i] = R_BRF_to_LRF.transpose().dot(feet_position_LRF)+config.LEG_ORIGINS[:,i]
+    return feet_position_BRF
 
 def jacobian(joint_position,leg_index,config):
     """Compute Jacobian matrixin Leg Reference Frame
@@ -292,11 +332,12 @@ def leg_explicit_inverse_kinematics_LRF(foot_position_LRF,leg_index,config):
     log("L: "+str(round(L,3)))
     log("Alpha: "+str(round(math.degrees(Alpha),0)))
     # bound max elongation
-    if(L>config.LEG_MAX_LENGTH):
-        L = config.LEG_MAX_LENGTH
-    if(L<config.LEG_MIN_LENGTH):
-        L = config.LEG_MIN_LENGTH
-    log("Lbounded: "+str(round(L,3)))   
+    if False:
+        if(L>config.LEG_MAX_LENGTH):
+            L = config.LEG_MAX_LENGTH
+        if(L<config.LEG_MIN_LENGTH):
+            L = config.LEG_MIN_LENGTH
+        log("Lbounded: "+str(round(L,3)))   
       
     # compute angle from HIP to femur in coxa plane
     HIPS = Alpha + cos_law_A(L,config.LEG_LF,config.LEG_LT)
@@ -348,12 +389,7 @@ def four_legs_explicit_inverse_kinematics_LRF(target_foot_position_LRF,config):
         )
     return joint_position
 
-# Constant Rotation from BRF to LRF reference frame
-R_BRF_to_LRF = np.array([
-        [0,0,1],
-        [0,1,0],
-        [-1,0,0]
-    ])
+
 
 def four_legs_explicit_inverse_kinematics_BRF(target_feet_position_BRF,config):
     """Find the joint position of the four feet from their position in the Body Reference Frame
