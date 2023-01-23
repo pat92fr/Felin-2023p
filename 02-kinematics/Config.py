@@ -4,9 +4,9 @@ class Configuration:
     def __init__(self):
 
         #################### COMMANDS ####################
-        self.max_x_velocity = 0.4
-        self.max_y_velocity = 0.3
-        self.max_yaw_rate = 2.0
+        self.max_x_velocity = 0.9
+        self.max_y_velocity = 0.4
+        self.max_yaw_rate = 1.8
         self.max_pitch = 30.0 * np.pi / 180.0
         
         #################### MOVEMENT PARAMS ####################
@@ -17,8 +17,8 @@ class Configuration:
         self.max_pitch_rate = 0.15
         self.roll_speed = 0.16  # maximum roll rate [rad/s]
         self.yaw_time_constant = 0.3
-        self.max_stance_yaw = 1.2
-        self.max_stance_yaw_rate = 2.0
+        self.max_stance_yaw = 0.8
+        self.max_stance_yaw_rate = 1.8
 
         ######################## GEOMETRY ######################
         # self.LEG_FB = 0.172  # front-back distance from center line to leg axis
@@ -65,11 +65,11 @@ class Configuration:
         self.DEFAULT_X =  0.172
         self.DEFAULT_Y =  0.140        
         self.DEFAULT_Z = -0.180
-        self.X_SHIFT   = -0.020
+        self.X_SHIFT   = 0.020
 
         #################### SWING ######################
         self.z_coeffs = None
-        self.z_clearance = 0.07
+        self.z_clearance = 0.09 #0.07
         self.alpha = (
             0.5  # Ratio between touchdown distance and total horizontal stance movement
         )
@@ -78,7 +78,7 @@ class Configuration:
         )
 
         #################### GAIT #######################
-        self.dt = 0.01
+        self.dt = 0.005
         self.num_phases = 4
         self.contact_phases = np.array(
             [[1, 1, 1, 0], [1, 0, 1, 1], [1, 0, 1, 1], [1, 1, 1, 0]]

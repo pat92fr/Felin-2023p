@@ -288,7 +288,9 @@ def cos_law_c(a,b,angle):
     return math.sqrt(a**2+b**2-2*a*b*math.cos(angle))
 
 def cos_law_A(a,b,c):
-    return math.acos( (a**2+b**2-c**2) / (2*a*b) )
+    x = (a**2+b**2-c**2) / (2*a*b)
+    x = np.clip(x,-1.0,1.0)
+    return math.acos( x )
 
 # return joint position (coxa,hips,knee) in RADIANS from foot position (x,y,z) in METERS 
 def leg_explicit_inverse_kinematics_LRF(foot_position_LRF,leg_index,config):
@@ -311,6 +313,7 @@ def leg_explicit_inverse_kinematics_LRF(foot_position_LRF,leg_index,config):
 
     # tibia+femur distance
     HF_dist_sq = CF_dist ** 2 - config.ABDUCTION_OFFSET ** 2
+    HF_dist_sq = max(HF_dist_sq,0)
     HF_dist = HF_dist_sq ** 0.5
     log("HF: "+str(round(HF_dist,3)))
 

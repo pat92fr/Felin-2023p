@@ -87,7 +87,7 @@ class Configuration:
             0.10  # duration of the phase where all four feet are on the ground
         )
         self.swing_time = (
-            0.15 #0.15  # duration of the phase when only two feet are on the ground
+            0.15  # duration of the phase when only two feet are on the ground
         )
 
     @property
