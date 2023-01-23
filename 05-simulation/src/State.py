@@ -6,17 +6,16 @@ class State:
 
         self.behavior_state = BehaviorState.CROUCH
         self.ticks = 0
-        #self.activation = 0
 
         # input data
         self.horizontal_velocity = np.array([0.0, 0.0])
         self.yaw_rate = 0.0
-        self.height = 0.0
+        self.height = config.CROUCH_Z
         self.pitch = 0.0
         self.roll = 0.0
 
         # setpoint
-        self.foot_locations = np.zeros((3, 4))
+        self.foot_locations = config.default_crouch
         self.joint_angles = np.zeros((3, 4))
         self.joint_torques = np.zeros((3, 4))
 

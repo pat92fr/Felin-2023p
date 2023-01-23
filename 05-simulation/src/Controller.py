@@ -69,20 +69,15 @@ class Controller:
         """
 
         ########## Update operating state based on command ######
-        # if command.activate_event:
-        #     state.behavior_state = self.activate_transition_mapping[state.behavior_state]
-        # elif command.trot_event:
-        #     state.behavior_state = self.trot_transition_mapping[state.behavior_state]
-        # elif command.hop_event:
-        #     state.behavior_state = self.hop_transition_mapping[state.behavior_state]
 
         if state.behavior_state == BehaviorState.CROUCH:
 
+            # force body height
+            command.height = self.config.CROUCH_Z
+
             # set state foot position to CROUCH
-            state.foot_locations = self.config.default_crouch
-            state.joint_angles = self.inverse_kinematics(
-                state.foot_locations, self.config
-            )            
+            state.foot_locations = self.config.default_crouch_with_zero_height + np.array([0, 0, state.height])[:, np.newaxis]
+            state.joint_angles = self.inverse_kinematics(state.foot_locations, self.config)            
 
             # transition to REST
             if command.activate_event:
@@ -163,7 +158,7 @@ class Controller:
                 )
             )
             # Set the foot locations to the default stance plus the standard height
-            state.foot_locations = self.config.default_stance
+            state.foot_locations = self.config.default_stance_with_zero_height + np.array([0, 0, state.height])[:, np.newaxis]
             # Apply the desired body rotation
             rotated_foot_locations = (
                 euler2mat(
@@ -192,4 +187,9 @@ class Controller:
         state.ticks += 1
         state.pitch = command.pitch
         state.roll = command.roll
-        state.height = command.height
+
+        # update body height according command and maximum body Z speed
+        if state.height > command.height:
+            state.height = max( command.height, state.height-self.config.z_speed*self.config.dt)
+        if state.height < command.height:
+            state.height = min( command.height, state.height+self.config.z_speed*self.config.dt)

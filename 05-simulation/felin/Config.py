@@ -11,7 +11,7 @@ class Configuration:
         
         #################### MOVEMENT PARAMS ####################
         self.z_time_constant = 0.02
-        self.z_speed = 0.03  # maximum speed [m/s]
+        self.z_speed = 0.04  # maximum speed [m/s]
         self.pitch_deadband = 0.02
         self.pitch_time_constant = 0.25
         self.max_pitch_rate = 0.15
@@ -48,7 +48,7 @@ class Configuration:
                 self.ABDUCTION_OFFSET,
             ]
         )
-        
+
         #################### CROUCH ####################
         self.CROUCH_X =  0.172
         self.CROUCH_Y =  0.120        
@@ -57,7 +57,7 @@ class Configuration:
 
         #################### STANCE ####################
         self.STANCE_X =  0.172
-        self.STANCE_Y =  0.140        
+        self.STANCE_Y =  0.120        
         self.STANCE_Z = -0.180
         self.STANCE_X_SHIFT   = 0.020
 
@@ -130,6 +130,31 @@ class Configuration:
         )
 
     ### default_stance_STANCE_Z = config.default_stance + np.array([[0.0,0.0,config.STANCE_Z_ref],]*4).transpose()
+
+    @property
+    def default_crouch_with_zero_height(self):
+        return np.array(
+            [
+                [
+                     self.CROUCH_X + self.CROUCH_X_SHIFT,
+                     self.CROUCH_X + self.CROUCH_X_SHIFT,
+                    -self.CROUCH_X + self.CROUCH_X_SHIFT,
+                    -self.CROUCH_X + self.CROUCH_X_SHIFT,
+                ],
+                [
+                    -self.CROUCH_Y,
+                    self.CROUCH_Y,
+                    -self.CROUCH_Y,
+                    self.CROUCH_Y
+                ],
+                [
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+            ]
+        )
 
     @property
     def default_crouch(self):
