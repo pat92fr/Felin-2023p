@@ -107,6 +107,13 @@ class Controller:
 
             rotated_foot_locations = rmat.T @ rotated_foot_locations
 
+            # Pat92fr
+            # Pat92fr
+            rotated_foot_locations = rotated_foot_locations + np.array([command.horizontal_velocity[0]*0.020,0.0,abs(command.horizontal_velocity[0])*0.020])[:, np.newaxis]
+            #print(command.horizontal_velocity[0]*0.020)
+            # Pat92fr
+            # Pat92fr
+
             state.joint_angles = self.inverse_kinematics(
                 rotated_foot_locations, self.config
             )

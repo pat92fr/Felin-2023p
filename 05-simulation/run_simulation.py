@@ -32,11 +32,6 @@ class Felin:
     # sub order ABDUCTION HIPS KNEE
     self.joints = ["ABD", "HIPS", "KNEE"]
 
-    # some properties
-    self.MAX_JOINT_TORQUE = 4.5 # 4.0
-    #self.kp = 0.3 # best with 0.05 or 0.1, but best reading of torque when = 1
-    #self.kd = 0.1 #0.1 default 0.05, but best reading of torque when = 0.1
-
     # alias
     self.nMotors = 12
     self.motorIdList = []
@@ -99,18 +94,18 @@ class Felin:
                               jointIndex=joint_index,
                               controlMode=p.POSITION_CONTROL,
                               targetPosition=joint_position,
-                              positionGain=0.1,
+                              positionGain=0.12,
                               #velocityGain=xxxx,
-                              force=self.MAX_JOINT_TORQUE)
+                              force=self.config.MAX_JOINT_TORQUE)
     else:
       p.setJointMotorControl2(bodyIndex=self.id,
                               jointIndex=joint_index,
                               controlMode=p.POSITION_CONTROL,
                               targetPosition=joint_position,
                               targetVelocity=joint_speed,
-                              positionGain=0.1,
+                              positionGain=0.12,
                               #velocityGain=xxxx,
-                              force=self.MAX_JOINT_TORQUE)
+                              force=self.config.MAX_JOINT_TORQUE)
 
 
   def setMotorAngleByName(self, joint_name, joint_position, joint_speed = None ):
@@ -307,7 +302,7 @@ class simulator:
         p.resetDebugVisualizerCamera(
           cameraDistance=p.readUserDebugParameter(self.cam_dist),
           cameraYaw=0,
-          cameraPitch=-20,
+          cameraPitch=-5,
           cameraTargetPosition=self.quadruped_position_filtered
         )
 

@@ -11,7 +11,7 @@ class Configuration:
         
         #################### MOVEMENT PARAMS ####################
         self.z_time_constant = 0.02
-        self.z_speed = 0.04  # maximum speed [m/s]
+        self.z_speed = 0.05  # maximum speed [m/s]
         self.pitch_deadband = 0.02
         self.pitch_time_constant = 0.25
         self.max_pitch_rate = 0.15
@@ -52,14 +52,14 @@ class Configuration:
         #################### CROUCH ####################
         self.CROUCH_X =  0.172
         self.CROUCH_Y =  0.120        
-        self.CROUCH_Z = -0.060
-        self.CROUCH_X_SHIFT   = 0.020
+        self.CROUCH_Z = -0.058
+        self.CROUCH_X_SHIFT   = 0.018
 
         #################### STANCE ####################
         self.STANCE_X =  0.172
         self.STANCE_Y =  0.120        
         self.STANCE_Z = -0.180
-        self.STANCE_X_SHIFT   = 0.020
+        self.STANCE_X_SHIFT   = -0.000
 
         #################### SWING ######################
         self.z_coeffs = None
@@ -83,6 +83,10 @@ class Configuration:
         self.swing_time = (
             0.15  # duration of the phase when only two feet are on the ground
         )
+        
+        ################## SWING ###########################
+
+        self.MAX_JOINT_TORQUE = 5.0 # Nm
 
     @property
     def default_stance_with_zero_height(self):
@@ -214,4 +218,3 @@ class Configuration:
     def phase_length(self):
         return 2 * self.overlap_ticks + 2 * self.swing_ticks
 
-        
