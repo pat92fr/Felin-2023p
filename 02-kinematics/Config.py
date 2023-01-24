@@ -51,15 +51,15 @@ class Configuration:
 
         #################### CROUCH ####################
         self.CROUCH_X =  0.172
-        self.CROUCH_Y =  0.120        
-        self.CROUCH_Z = -0.058
+        self.CROUCH_Y =  0.125        
+        self.CROUCH_Z = -0.054
         self.CROUCH_X_SHIFT   = 0.018
 
         #################### STANCE ####################
         self.STANCE_X =  0.172
-        self.STANCE_Y =  0.120        
+        self.STANCE_Y =  0.125        
         self.STANCE_Z = -0.180
-        self.STANCE_X_SHIFT   = -0.000
+        self.STANCE_X_SHIFT   = 0.018
 
         #################### SWING ######################
         self.z_coeffs = None
