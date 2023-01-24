@@ -264,6 +264,8 @@ class simulator:
     # Init log
     log_body = open("dataset_pybullet_body.txt", "w")
     log_body.write("x,y,z,p,r,y\n")
+    log_leg = open("dataset_pybullet_leg.txt", "w")
+    log_leg.write("t1,t2,t3\n")
 
     # game loop
     while True:
@@ -393,6 +395,15 @@ class simulator:
          "{:.3f}".format(roll)+","+
          "{:.3f}".format(yaw)+"\n"
       )
+
+      torques = self.quadruped.getMotorTorques()
+      log_leg.write(         
+        "{:.3f}".format(torques[0])+","+
+        "{:.3f}".format(torques[0])+","+
+        "{:.3f}".format(torques[0])+"\n"
+        )
+
+      
 
     p.disconnect()
 
