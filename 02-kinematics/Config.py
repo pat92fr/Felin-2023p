@@ -11,7 +11,7 @@ class Configuration:
         
         #################### MOVEMENT PARAMS ####################
         self.z_time_constant = 0.02
-        self.z_speed = 0.03  # maximum speed [m/s]
+        self.z_speed = 0.04  # maximum speed [m/s]
         self.pitch_deadband = 0.02
         self.pitch_time_constant = 0.25
         self.max_pitch_rate = 0.15
@@ -21,8 +21,7 @@ class Configuration:
         self.max_stance_yaw_rate = 1.8
 
         ######################## GEOMETRY ######################
-        # self.LEG_FB = 0.172  # front-back distance from center line to leg axis
-        # self.LEG_LR = 0.060  # left-right distance from center line to leg plane
+
         self.LEG_OX = 0.172  # Leg origin along body X axis
         self.LEG_OY = 0.060  # Leg origin along body Y axis
         self.LEG_OZ = 0.000  # Leg origin along body Z axis
@@ -34,14 +33,7 @@ class Configuration:
         self.LEG_MIN_LENGTH = 0.060
         self.LEG_MAX_LENGTH = self.LEG_LF + self.LEG_LT - 0.010
 
-        # self.HIP_L = 0.0394
-        # self.HIP_W = 0.0744
-        # self.HIP_T = 0.0214
-        # self.HIP_OFFSET = 0.0132
 
-        # self.L = 0.276
-        # self.W = 0.100
-        # self.T = 0.050
 
         self.LEG_ORIGINS = np.array(
             [
@@ -59,13 +51,16 @@ class Configuration:
                 self.ABDUCTION_OFFSET,
             ]
         )
+        #################### CROUCH ####################
+        self.CROUCH_X =  0.172
+        self.CROUCH_Y =  0.120        
+        self.CROUCH_Z = -0.060
+        self.CROUCH_X_SHIFT   = 0.020
         #################### STANCE ####################
-        # self.delta_x = 0.172
-        # self.delta_y = 0.120
-        self.DEFAULT_X =  0.172
-        self.DEFAULT_Y =  0.140        
-        self.DEFAULT_Z = -0.180
-        self.X_SHIFT   = 0.020
+        self.STANCE_X =  0.172
+        self.STANCE_Y =  0.120        
+        self.STANCE_Z = -0.180
+        self.STANCE_X_SHIFT   = 0.020
 
         #################### SWING ######################
         self.z_coeffs = None
@@ -91,52 +86,101 @@ class Configuration:
         )
 
     @property
-    def default_stance(self):
+    def default_stance_with_zero_height(self):
         return np.array(
             [
                 [
-                     self.DEFAULT_X + self.X_SHIFT,
-                     self.DEFAULT_X + self.X_SHIFT,
-                    -self.DEFAULT_X + self.X_SHIFT,
-                    -self.DEFAULT_X + self.X_SHIFT,
+                     self.STANCE_X + self.STANCE_X_SHIFT,
+                     self.STANCE_X + self.STANCE_X_SHIFT,
+                    -self.STANCE_X + self.STANCE_X_SHIFT,
+                    -self.STANCE_X + self.STANCE_X_SHIFT,
                 ],
                 [
-                    -self.DEFAULT_Y,
-                    self.DEFAULT_Y,
-                    -self.DEFAULT_Y,
-                    self.DEFAULT_Y
+                    -self.STANCE_Y,
+                    self.STANCE_Y,
+                    -self.STANCE_Y,
+                    self.STANCE_Y
                 ],
                 [0, 0, 0, 0],
             ]
         )
 
     @property
-    def default_stance_with_z(self):
+    def default_stance(self):
         return np.array(
             [
                 [
-                     self.DEFAULT_X + self.X_SHIFT,
-                     self.DEFAULT_X + self.X_SHIFT,
-                    -self.DEFAULT_X + self.X_SHIFT,
-                    -self.DEFAULT_X + self.X_SHIFT,
+                     self.STANCE_X + self.STANCE_X_SHIFT,
+                     self.STANCE_X + self.STANCE_X_SHIFT,
+                    -self.STANCE_X + self.STANCE_X_SHIFT,
+                    -self.STANCE_X + self.STANCE_X_SHIFT,
                 ],
                 [
-                    -self.DEFAULT_Y,
-                    self.DEFAULT_Y,
-                    -self.DEFAULT_Y,
-                    self.DEFAULT_Y
+                    -self.STANCE_Y,
+                    self.STANCE_Y,
+                    -self.STANCE_Y,
+                    self.STANCE_Y
                 ],
                 [
-                    self.DEFAULT_Z,
-                    self.DEFAULT_Z,
-                    self.DEFAULT_Z,
-                    self.DEFAULT_Z
+                    self.STANCE_Z,
+                    self.STANCE_Z,
+                    self.STANCE_Z,
+                    self.STANCE_Z
                 ],
             ]
         )
 
-    ### default_stance_default_z = config.default_stance + np.array([[0.0,0.0,config.default_z_ref],]*4).transpose()
+    ### default_stance_STANCE_Z = config.default_stance + np.array([[0.0,0.0,config.STANCE_Z_ref],]*4).transpose()
 
+    @property
+    def default_crouch_with_zero_height(self):
+        return np.array(
+            [
+                [
+                     self.CROUCH_X + self.CROUCH_X_SHIFT,
+                     self.CROUCH_X + self.CROUCH_X_SHIFT,
+                    -self.CROUCH_X + self.CROUCH_X_SHIFT,
+                    -self.CROUCH_X + self.CROUCH_X_SHIFT,
+                ],
+                [
+                    -self.CROUCH_Y,
+                    self.CROUCH_Y,
+                    -self.CROUCH_Y,
+                    self.CROUCH_Y
+                ],
+                [
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+            ]
+        )
+
+    @property
+    def default_crouch(self):
+        return np.array(
+            [
+                [
+                     self.CROUCH_X + self.CROUCH_X_SHIFT,
+                     self.CROUCH_X + self.CROUCH_X_SHIFT,
+                    -self.CROUCH_X + self.CROUCH_X_SHIFT,
+                    -self.CROUCH_X + self.CROUCH_X_SHIFT,
+                ],
+                [
+                    -self.CROUCH_Y,
+                    self.CROUCH_Y,
+                    -self.CROUCH_Y,
+                    self.CROUCH_Y
+                ],
+                [
+                    self.CROUCH_Z,
+                    self.CROUCH_Z,
+                    self.CROUCH_Z,
+                    self.CROUCH_Z
+                ],
+            ]
+        )
 
     ################## SWING ###########################
 
