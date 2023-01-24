@@ -94,7 +94,7 @@ class Felin:
                               jointIndex=joint_index,
                               controlMode=p.POSITION_CONTROL,
                               targetPosition=joint_position,
-                              positionGain=0.12,
+                              positionGain=0.15,
                               #velocityGain=xxxx,
                               force=self.config.MAX_JOINT_TORQUE)
     else:
@@ -103,7 +103,7 @@ class Felin:
                               controlMode=p.POSITION_CONTROL,
                               targetPosition=joint_position,
                               targetVelocity=joint_speed,
-                              positionGain=0.12,
+                              positionGain=0.15,
                               #velocityGain=xxxx,
                               force=self.config.MAX_JOINT_TORQUE)
 
@@ -283,9 +283,10 @@ class simulator:
 
       # Update camera
       quadruped_position, quadruped_attitude = p.getBasePositionAndOrientation(self.quadruped.id) 
+      alpha = 0.1
       self.quadruped_position_filtered = (
-        0.99*self.quadruped_position_filtered[0]+0.01*quadruped_position[0],
-        0.99*self.quadruped_position_filtered[1]+0.01*quadruped_position[1],
+        (1.0-alpha)*self.quadruped_position_filtered[0]+alpha*quadruped_position[0],
+        (1.0-alpha)*self.quadruped_position_filtered[1]+alpha*quadruped_position[1],
         0
       )
 
