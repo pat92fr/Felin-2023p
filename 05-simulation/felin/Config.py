@@ -86,7 +86,8 @@ class Configuration:
         
         ################## SWING ###########################
 
-        self.MAX_JOINT_TORQUE = 5.0 # Nm
+        self.MAX_JOINT_TORQUE = 5.0 # 6 real torque (Nm)
+        self.KP = 0.12
 
     @property
     def default_stance_with_zero_height(self):

@@ -94,7 +94,7 @@ class Felin:
                               jointIndex=joint_index,
                               controlMode=p.POSITION_CONTROL,
                               targetPosition=joint_position,
-                              positionGain=0.15,
+                              positionGain=self.config.KP,
                               #velocityGain=xxxx,
                               force=self.config.MAX_JOINT_TORQUE)
     else:
@@ -103,7 +103,7 @@ class Felin:
                               controlMode=p.POSITION_CONTROL,
                               targetPosition=joint_position,
                               targetVelocity=joint_speed,
-                              positionGain=0.15,
+                              positionGain=self.config.KP,
                               #velocityGain=xxxx,
                               force=self.config.MAX_JOINT_TORQUE)
 
@@ -399,8 +399,8 @@ class simulator:
       torques = self.quadruped.getMotorTorques()
       log_leg.write(         
         "{:.3f}".format(torques[0])+","+
-        "{:.3f}".format(torques[0])+","+
-        "{:.3f}".format(torques[0])+"\n"
+        "{:.3f}".format(torques[1])+","+
+        "{:.3f}".format(torques[2])+"\n"
         )
 
       
