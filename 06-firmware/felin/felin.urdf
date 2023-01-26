@@ -1,0 +1,775 @@
+<?xml version="1.0"?>
+
+<!-- 
+    ############################################
+    ######              MEMO              ######
+    ############################################
+    x = front
+    y = left
+    z = up
+    
+    Origin is placed at geometry center of the body 
+
+    https://mymodelrobot.appspot.com/6312011906416640
+-->
+
+<robot name="felin">
+
+
+    <material name="white">
+        <color rgba="0.9 0.9 0.9 1.0"/>
+    </material>
+    <material name="black">
+        <color rgba="0.2 0.2 0.2 1.0"/>
+    </material>
+    <material name="dark_grey">
+        <color rgba="0.3 0.3 0.3 1.0"/>
+    </material>    
+    <material name="grey">
+        <color rgba="0.6 0.6 0.6 1.0"/>
+    </material>
+
+    <!-- 
+    ############################################
+    ######              BODY              ######
+    ############################################
+    -->
+    <!--
+    ********************************************
+    ******              PARTS             ******
+    ********************************************
+    -->
+    <link name="body-base">
+        <!--body-base-case-->
+        <visual>
+            <geometry>
+                <box size="0.220 0.120 0.080"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <material name="white"/>          
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.220 0.120 0.080"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+        </collision>
+        
+        <!--body-base-right-cylinder-->
+        <visual>
+            <geometry>
+                <cylinder length="0.260" radius="0.040"/> 
+            </geometry>
+            <origin rpy="0 1.57079 0" xyz="0.0 -0.06 0"/>
+            <material name="white"/>                          
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder length="0.260" radius="0.040"/> 
+            </geometry>
+            <origin rpy="0 1.57079 0" xyz="0.0 -0.06 0"/>
+        </collision>
+
+        <!--body-base-left-cylinder-->
+        <visual>
+            <geometry>
+                <cylinder length="0.260" radius="0.040"/> 
+            </geometry>
+            <origin rpy="0 1.57079 0" xyz="0.0 0.06 0"/>
+            <material name="white"/>                          
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder length="0.260" radius="0.040"/> 
+            </geometry>
+            <origin rpy="0 1.57079 0" xyz="0.0 0.06 0"/>
+        </collision>
+
+        <!--body-battery-holder-->
+        <visual>
+            <geometry>
+                <box size="0.178 0.060 0.028"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0.0 0.0 -0.054"/>
+            <material name="white"/>                          
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.178 0.060 0.028"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0.0 0.0 -0.054"/>
+        </collision>
+
+        <inertial>
+            <origin rpy="0 0 0" xyz="0.050 0 0"/>
+            <mass value="2.4"/> <!--3-->
+            <inertia ixx="0.02" ixy="0.0" ixz="0.0" iyy="0.03" iyz="0.0" izz="0.03"/>
+        </inertial>
+    </link>
+        
+    <!-- 
+    ############################################
+    ######              LEG Front Right   ######
+    ############################################
+    -->
+    <!--
+    ********************************************
+    ******              PARTS             ******
+    ********************************************
+    -->
+    <link name="FR-pod">
+        <visual>
+            <geometry>
+                <cylinder length="0.080" radius="0.040"/>
+            </geometry>
+            <origin rpy="1.57079 0 0" xyz="0 0 0"/>
+            <material name="black"/>
+        </visual>
+        <visual>
+            <geometry>
+                <cylinder length="0.040" radius="0.040"/>
+            </geometry>
+            <origin rpy="0.0 0 0" xyz="0.0 0 0.02"/>
+            <material name="black"/>                          
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder length="0.080" radius="0.040"/>
+            </geometry>
+            <origin rpy="1.57079 0 0" xyz="0 0 0"/>
+        </collision>
+        <inertial>
+            <mass value="0.4"/>
+            <inertia ixx="0.0003" ixy="0.0" ixz="0.0" iyy="0.0008" iyz="0.0" izz="0.0008"/>
+        </inertial>        
+    </link>
+    
+    <link name="FR-femur">
+        <visual>
+            <geometry>
+                <cylinder radius="0.037" length="0.060"/>
+            </geometry>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 -0.01"/>
+            <material name="dark_grey"/>          
+        </visual>
+        <visual>
+            <geometry>
+                <box size="0.140 0.060 0.040"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0.07 0 0"/>
+            <material name="dark_grey"/>
+        </visual>
+        <visual>
+            <geometry>
+                <cylinder radius="0.03" length="0.040"/>
+            </geometry>
+            <origin rpy="0.0 0.0 0.0" xyz="0.14 0.0 0.0"/>
+            <material name="dark_grey"/>
+        </visual>
+
+        <collision>
+            <geometry>
+                <cylinder radius="0.037" length="0.060"/>
+            </geometry>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 -0.01"/>
+        </collision>
+        <collision>
+            <geometry>
+                <box size="0.140 0.060 0.040"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0.07 0 0"/>          
+        </collision>
+        <collision>
+            <geometry>
+                <cylinder radius="0.03" length="0.040"/>
+            </geometry>
+            <origin rpy="0.0 0.0 0.0" xyz="0.14 0.0 0.0"/>        
+        </collision>
+
+        <inertial>
+          <mass value="0.5"/>
+          <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+        </inertial>      
+    </link>
+    
+    <link name="FR-tibia">
+        <visual>
+            <geometry>
+                <box size="0.150 0.020 0.025"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0.075 0 0"/>
+            <material name="grey"/>  
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.150 0.020 0.025"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0.075 0 0"/>
+        </collision>
+        <inertial>
+          <mass value="0.1"/>
+          <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+        </inertial>      
+    </link>
+
+    <link name="FR-foot">
+        <visual>
+            <geometry>
+                <sphere radius="0.022"/>
+            </geometry>
+            <material name="black"/>     
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.022"/>
+            </geometry>
+        </collision>
+        <contact>
+            <stiffness value="10000"/>
+            <damping value="1000"/>
+            <lateral_friction value="1"/>
+        </contact>   
+        <inertial>
+          <mass value="0.05"/>
+          <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+        </inertial>           
+    </link>
+    
+    <!--
+    ********************************************
+    ******             JOINTS             ******
+    ********************************************
+    -->
+    <joint name="FR-ABD" type="revolute">
+        <parent link="body-base"/>
+        <child link="FR-pod"/>
+        <origin rpy="0 -1.57079 0" xyz="0.172 -0.060 0"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-0.4" upper="0.4" effort="100" velocity="1000"/>      
+    </joint>
+    
+    <joint name="FR-HIPS" type="revolute">
+        <parent link="FR-pod"/>
+        <child link="FR-femur"/>
+        <!--<origin rpy="-1.57079 0 1.57079" xyz="0.0 -0.06 0.0"/> --><!-- abduction along y -->
+        <origin rpy="-1.57079 1.57079 0" xyz="0.0 -0.06 0.0"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="0.0" upper="3.4" effort="100" velocity="1000"/>
+    </joint>
+    
+    <joint name="FR-KNEE" type="revolute">
+        <parent link="FR-femur"/>
+        <child link="FR-tibia"/>
+        <origin rpy="0 0 -3.14159" xyz="0.140 0.0 0"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="0.0" upper="3.1" effort="100" velocity="1000"/>
+    </joint>
+    
+    <joint name="FR-FOOT" type="fixed">
+        <parent link="FR-tibia"/>
+        <child link="FR-foot"/>
+        <origin rpy="0 0 0" xyz="0.150 0.0 -0.0"/>
+    </joint>
+
+    <!-- 
+    ############################################
+    ######              LEG Rear Right   ######
+    ############################################
+    -->
+    <!--
+    ********************************************
+    ******              PARTS             ******
+    ********************************************
+    -->
+    <link name="RR-pod">
+        <visual>
+            <geometry>
+                <cylinder length="0.080" radius="0.040"/>
+            </geometry>
+            <origin rpy="1.57079 0 0" xyz="0 0 0"/>
+            <material name="black"/>
+        </visual>
+        <visual>
+            <geometry>
+                <cylinder length="0.040" radius="0.040"/>
+            </geometry>
+            <origin rpy="0.0 0 0" xyz="0.0 0 -0.02"/>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder length="0.080" radius="0.040"/>
+            </geometry>
+            <origin rpy="1.57079 0 0" xyz="0 0 0"/>
+        </collision>
+        <inertial>
+            <mass value="0.4"/>
+            <inertia ixx="0.0003" ixy="0.0" ixz="0.0" iyy="0.0008" iyz="0.0" izz="0.0008"/>
+        </inertial>           
+    </link>
+    
+
+    <link name="RR-femur">
+        <visual>
+            <geometry>
+                <cylinder radius="0.037" length="0.060"/>
+            </geometry>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 -0.01"/>
+            <material name="dark_grey">
+                <color rgba="0.2 0.2 0.2 1.0"/>
+           </material>            
+        </visual>
+        <visual>
+            <geometry>
+                <box size="0.140 0.060 0.040"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0.07 0 0"/>
+            <material name="dark_grey"/>       
+        </visual>
+        <visual>
+            <geometry>
+                <cylinder radius="0.03" length="0.040"/>
+            </geometry>
+            <origin rpy="0.0 0.0 0.0" xyz="0.14 0.0 0.0"/>
+            <material name="dark_grey"/>      
+        </visual>
+
+        <collision>
+            <geometry>
+                <cylinder radius="0.037" length="0.060"/>
+            </geometry>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 -0.01"/>
+        </collision>
+        <collision>
+            <geometry>
+                <box size="0.140 0.060 0.040"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0.07 0 0"/>          
+        </collision>
+        <collision>
+            <geometry>
+                <cylinder radius="0.03" length="0.040"/>
+            </geometry>
+            <origin rpy="0.0 0.0 0.0" xyz="0.14 0.0 0.0"/>        
+        </collision>
+
+        <inertial>
+          <mass value="0.5"/>
+          <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+        </inertial>      
+    </link>
+    
+
+    <link name="RR-tibia">
+        <visual>
+            <geometry>
+                <box size="0.150 0.020 0.025"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0.075 0 0"/>
+            <material name="grey"/>     
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.150 0.020 0.025"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0.075 0 0"/>
+        </collision>
+        <inertial>
+          <mass value="0.1"/>
+          <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+        </inertial>      
+    </link>
+
+    <link name="RR-foot">
+        <visual>
+            <geometry>
+                <sphere radius="0.022"/>
+            </geometry>
+            <material name="black"/>          
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.022"/>
+            </geometry>
+        </collision>
+        <contact>
+            <stiffness value="10000"/>
+            <damping value="1000"/>
+            <lateral_friction value="1"/>
+        </contact>   
+        <inertial>
+          <mass value="0.05"/>
+          <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+        </inertial>           
+    </link>    
+    
+    <!--
+    ********************************************
+    ******             JOINTS             ******
+    ********************************************
+    -->
+    <joint name="RR-ABD" type="revolute">
+        <parent link="body-base"/>
+        <child link="RR-pod"/>
+        <origin rpy="0 -1.57079 0" xyz="-0.172 -0.060 0"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-0.4" upper="0.4" effort="100" velocity="1000"/> 
+    </joint>
+    
+    <joint name="RR-HIPS" type="revolute">
+        <parent link="RR-pod"/>
+        <child link="RR-femur"/>
+        <!--<origin rpy="-1.57079 0 1.57079" xyz="0.0 -0.06 0.0"/> --><!-- abduction along y -->
+        <origin rpy="-1.57079 1.57079 0" xyz="0.0 -0.06 0.0"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="0.0" upper="3.4" effort="100" velocity="1000"/>
+    </joint>
+    
+    <joint name="RR-KNEE" type="revolute">
+        <parent link="RR-femur"/>
+        <child link="RR-tibia"/>
+        <origin rpy="0 0 -3.14159" xyz="0.140 0.0 0"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="0.0" upper="3.1" effort="100" velocity="1000"/>
+    </joint>
+    
+    <joint name="RR-FOOT" type="fixed">
+        <parent link="RR-tibia"/>
+        <child link="RR-foot"/>
+        <origin rpy="0 0 0" xyz="0.150 0.0 -0.0"/>
+    </joint>
+
+
+    <!-- 
+    ############################################
+    ######              LEG Front Left   ######
+    ############################################
+    -->
+    <!--
+    ********************************************
+    ******              PARTS             ******
+    ********************************************
+    -->
+    <link name="FL-pod">
+        <visual>
+            <geometry>
+                <cylinder length="0.080" radius="0.040"/>
+            </geometry>
+            <origin rpy="1.57079 0 0" xyz="0 0 0"/>
+            <material name="black"/>
+        </visual>
+        <visual>
+            <geometry>
+                <cylinder length="0.040" radius="0.040"/>
+            </geometry>
+            <origin rpy="0.0 0 0" xyz="0 0 0.02"/>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder length="0.080" radius="0.040"/>
+            </geometry>
+            <origin rpy="1.57079 0 0" xyz="0 0 0"/>
+        </collision>
+        <inertial>
+            <mass value="0.4"/>
+            <inertia ixx="0.0003" ixy="0.0" ixz="0.0" iyy="0.0008" iyz="0.0" izz="0.0008"/>
+        </inertial>        
+    </link>
+    
+    <link name="FL-femur">
+        <visual>
+            <geometry>
+                <cylinder radius="0.037" length="0.060"/>
+            </geometry>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.01"/>
+            <material name="dark_grey"/>      
+        </visual>
+        <visual>
+            <geometry>
+                <box size="0.140 0.060 0.040"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0.07 0 0"/>
+            <material name="dark_grey"/>          
+        </visual>
+        <visual>
+            <geometry>
+                <cylinder radius="0.03" length="0.040"/>
+            </geometry>
+            <origin rpy="0.0 0.0 0.0" xyz="0.14 0.0 0.0"/>
+            <material name="dark_grey"/>      
+        </visual>
+
+        <collision>
+            <geometry>
+                <cylinder radius="0.037" length="0.060"/>
+            </geometry>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.01"/>
+        </collision>
+        <collision>
+            <geometry>
+                <box size="0.140 0.060 0.040"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0.07 0 0"/>          
+        </collision>
+        <collision>
+            <geometry>
+                <cylinder radius="0.03" length="0.040"/>
+            </geometry>
+            <origin rpy="0.0 0.0 0.0" xyz="0.14 0.0 0.0"/>        
+        </collision>
+
+        <inertial>
+          <mass value="0.5"/>
+          <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+        </inertial>      
+    </link>
+    
+    <link name="FL-tibia">
+        <visual>
+            <geometry>
+                <box size="0.150 0.020 0.025"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0.075 0 0"/>
+            <material name="grey"/>           
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.150 0.020 0.025"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0.075 0 0"/>
+        </collision>
+        <inertial>
+          <mass value="0.1"/>
+          <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+        </inertial>      
+    </link>
+
+    <link name="FL-foot">
+        <visual>
+            <geometry>
+                <sphere radius="0.022"/>
+            </geometry>
+            <material name="black"/>   
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.022"/>
+            </geometry>
+        </collision>
+        <contact>
+            <stiffness value="10000"/>
+            <damping value="1000"/>
+            <lateral_friction value="1"/>
+        </contact>   
+        <inertial>
+          <mass value="0.05"/>
+          <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+        </inertial>           
+    </link>
+    
+    <!--
+    ********************************************
+    ******             JOINTS             ******
+    ********************************************
+    -->
+    <joint name="FL-ABD" type="revolute">
+        <parent link="body-base"/>
+        <child link="FL-pod"/>
+        <origin rpy="0 -1.57079 0" xyz="0.172 0.060 0"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-0.4" upper="0.4" effort="100" velocity="1000"/>      
+    </joint>
+    
+    <joint name="FL-HIPS" type="revolute">
+        <parent link="FL-pod"/>
+        <child link="FL-femur"/>
+        <!--<origin rpy="-1.57079 0 1.57079" xyz="0.0 -0.06 0.0"/> --><!-- abduction along y -->
+        <origin rpy="-1.57079 1.57079 0" xyz="0.0 0.06 0.0"/>        
+        <axis xyz="0 0 1"/>
+        <limit lower="0.0" upper="3.4" effort="100" velocity="1000"/>
+    </joint>
+    
+    <joint name="FL-KNEE" type="revolute">
+        <parent link="FL-femur"/>
+        <child link="FL-tibia"/>
+        <origin rpy="0 0 -3.14159" xyz="0.140 0.0 0"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="0.0" upper="3.1" effort="100" velocity="1000"/>
+    </joint>
+    
+    <joint name="FL-FOOT" type="fixed">
+        <parent link="FL-tibia"/>
+        <child link="FL-foot"/>
+        <origin rpy="0 0 0" xyz="0.150 0.0 -0.0"/>
+    </joint>
+
+
+    <!-- 
+    ############################################
+    ######              Leg Rear Left    ######
+    ############################################
+    -->
+    <!--
+    ********************************************
+    ******              PARTS             ******
+    ********************************************
+    -->
+    <link name="RL-pod">
+        <visual>
+            <geometry>
+                <cylinder length="0.080" radius="0.040"/>
+            </geometry>
+            <origin rpy="1.57079 0 0" xyz="0 0 0"/>
+            <material name="black"/>
+        </visual>
+        <visual>
+            <geometry>
+                <cylinder length="0.040" radius="0.040"/>
+            </geometry>
+            <origin rpy="0.0 0 0" xyz="0.0 0 -0.02"/>
+            <material name="black"/>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder length="0.080" radius="0.040"/>
+            </geometry>
+            <origin rpy="1.57079 0 0" xyz="0 0 0"/>
+        </collision>
+        <inertial>
+            <mass value="0.4"/>
+            <inertia ixx="0.0003" ixy="0.0" ixz="0.0" iyy="0.0008" iyz="0.0" izz="0.0008"/>
+        </inertial>        
+    </link>
+    
+    <link name="RL-femur">
+        <visual>
+            <geometry>
+                <cylinder radius="0.037" length="0.060"/>
+            </geometry>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.01"/>
+           <material name="dark_grey"/>     
+        </visual>
+        <visual>
+            <geometry>
+                <box size="0.140 0.060 0.040"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0.07 0 0"/>
+            <material name="dark_grey"/>          
+        </visual>
+        <visual>
+            <geometry>
+                <cylinder radius="0.03" length="0.040"/>
+            </geometry>
+            <origin rpy="0.0 0.0 0.0" xyz="0.14 0.0 0.0"/>
+            <material name="dark_grey"/>       
+        </visual>
+
+        <collision>
+            <geometry>
+                <cylinder radius="0.037" length="0.060"/>
+            </geometry>
+            <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.01"/>
+        </collision>
+        <collision>
+            <geometry>
+                <box size="0.140 0.060 0.040"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0.07 0 0"/>          
+        </collision>
+        <collision>
+            <geometry>
+                <cylinder radius="0.03" length="0.040"/>
+            </geometry>
+            <origin rpy="0.0 0.0 0.0" xyz="0.14 0.0 0.0"/>        
+        </collision>
+
+        <inertial>
+          <mass value="0.5"/>
+          <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+        </inertial>      
+    </link>
+    
+    <link name="RL-tibia">
+        <visual>
+            <geometry>
+                <box size="0.150 0.020 0.025"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0.075 0 0"/>
+            <material name="grey"/>         
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.150 0.020 0.025"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0.075 0 0"/>
+        </collision>
+        <inertial>
+          <mass value="0.1"/>
+          <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+        </inertial>      
+    </link>
+
+    <link name="RL-foot">
+        <visual>
+            <geometry>
+                <sphere radius="0.022"/>
+            </geometry>
+            <material name="black"/>   
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="0.022"/>
+            </geometry>
+        </collision>
+        <contact>
+            <stiffness value="10000"/>
+            <damping value="1000"/>
+            <lateral_friction value="1"/>
+        </contact>   
+        <inertial>
+          <mass value="0.05"/>
+          <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+        </inertial>           
+    </link>
+    
+    <!--
+    ********************************************
+    ******             JOINTS             ******
+    ********************************************
+    -->
+    <joint name="RL-ABD" type="revolute">
+        <parent link="body-base"/>
+        <child link="RL-pod"/>
+        <origin rpy="0 -1.57079 0" xyz="-0.172 0.060 0"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="-0.4" upper="0.4" effort="100" velocity="1000"/>      
+    </joint>
+    
+    <joint name="RL-HIPS" type="revolute">
+        <parent link="RL-pod"/>
+        <child link="RL-femur"/>
+        <!--<origin rpy="-1.57079 0 1.57079" xyz="0.0 -0.06 0.0"/> --><!-- abduction along y -->
+        <origin rpy="-1.57079 1.57079 0" xyz="0.0 0.06 0.0"/>       
+        <axis xyz="0 0 1"/>
+        <limit lower="0.0" upper="3.4" effort="100" velocity="1000"/>
+    </joint>
+    
+    <joint name="RL-KNEE" type="revolute">
+        <parent link="RL-femur"/>
+        <child link="RL-tibia"/>
+        <origin rpy="0 0 -3.14159" xyz="0.140 0.0 0"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="0.0" upper="3.1" effort="100" velocity="1000"/>
+    </joint>
+    
+    <joint name="RL-FOOT" type="fixed">
+        <parent link="RL-tibia"/>
+        <child link="RL-foot"/>
+        <origin rpy="0 0 0" xyz="0.150 0.0 -0.0"/>
+    </joint>
+
+
+
+
+</robot>    
