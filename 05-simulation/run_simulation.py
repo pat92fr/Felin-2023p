@@ -305,7 +305,7 @@ class simulator:
         p.resetDebugVisualizerCamera(
           cameraDistance=p.readUserDebugParameter(self.cam_dist),
           cameraYaw=0,
-          cameraPitch=-5,
+          cameraPitch=0,
           cameraTargetPosition=self.quadruped_position_filtered
         )
 

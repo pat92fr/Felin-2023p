@@ -51,14 +51,14 @@ class Configuration:
 
         #################### CROUCH ####################
         self.CROUCH_X =  0.172
-        self.CROUCH_Y =  0.125        
-        self.CROUCH_Z = -0.054
-        self.CROUCH_X_SHIFT   = 0.018
+        self.CROUCH_Y =  0.117       
+        self.CROUCH_Z = -0.066
+        self.CROUCH_X_SHIFT   = 0.021
 
         #################### STANCE ####################
         self.STANCE_X =  0.172
-        self.STANCE_Y =  0.125        
-        self.STANCE_Z =  -0.150 #-0.190
+        self.STANCE_Y =  0.117 #0.125        
+        self.STANCE_Z = -0.190
         self.STANCE_X_SHIFT   = 0.018
 
         #################### SWING ######################
@@ -86,8 +86,8 @@ class Configuration:
         
         ################## SWING ###########################
 
-        self.MAX_JOINT_TORQUE = 5.0 # 6 real torque (Nm)
-        self.KP = 0.12
+        self.MAX_JOINT_TORQUE = 5.0 # ~4.0 real torque (Nm)
+        self.KP = 0.12 # ~0.08 real position PD
 
     @property
     def default_stance_with_zero_height(self):

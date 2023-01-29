@@ -147,21 +147,21 @@
     <link name="FR-femur">
         <visual>
             <geometry>
-                <cylinder radius="0.037" length="0.060"/>
+                <cylinder radius="0.036" length="0.060"/>
             </geometry>
             <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 -0.01"/>
             <material name="dark_grey"/>          
         </visual>
         <visual>
             <geometry>
-                <box size="0.140 0.060 0.040"/>
+                <box size="0.140 0.054 0.040"/>
             </geometry>
             <origin rpy="0 0 0" xyz="0.07 0 0"/>
             <material name="dark_grey"/>
         </visual>
         <visual>
             <geometry>
-                <cylinder radius="0.03" length="0.040"/>
+                <cylinder radius="0.027" length="0.040"/>
             </geometry>
             <origin rpy="0.0 0.0 0.0" xyz="0.14 0.0 0.0"/>
             <material name="dark_grey"/>
@@ -169,19 +169,19 @@
 
         <collision>
             <geometry>
-                <cylinder radius="0.037" length="0.060"/>
+                <cylinder radius="0.036" length="0.060"/>
             </geometry>
             <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 -0.01"/>
         </collision>
         <collision>
             <geometry>
-                <box size="0.140 0.060 0.040"/>
+                <box size="0.140 0.054 0.040"/>
             </geometry>
             <origin rpy="0 0 0" xyz="0.07 0 0"/>          
         </collision>
         <collision>
             <geometry>
-                <cylinder radius="0.03" length="0.040"/>
+                <cylinder radius="0.027" length="0.040"/>
             </geometry>
             <origin rpy="0.0 0.0 0.0" xyz="0.14 0.0 0.0"/>        
         </collision>
@@ -312,7 +312,7 @@
     <link name="RR-femur">
         <visual>
             <geometry>
-                <cylinder radius="0.037" length="0.060"/>
+                <cylinder radius="0.036" length="0.060"/>
             </geometry>
             <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 -0.01"/>
             <material name="dark_grey">
@@ -321,14 +321,14 @@
         </visual>
         <visual>
             <geometry>
-                <box size="0.140 0.060 0.040"/>
+                <box size="0.140 0.054 0.040"/>
             </geometry>
             <origin rpy="0 0 0" xyz="0.07 0 0"/>
             <material name="dark_grey"/>       
         </visual>
         <visual>
             <geometry>
-                <cylinder radius="0.03" length="0.040"/>
+                <cylinder radius="0.027" length="0.040"/>
             </geometry>
             <origin rpy="0.0 0.0 0.0" xyz="0.14 0.0 0.0"/>
             <material name="dark_grey"/>      
@@ -336,19 +336,19 @@
 
         <collision>
             <geometry>
-                <cylinder radius="0.037" length="0.060"/>
+                <cylinder radius="0.036" length="0.060"/>
             </geometry>
             <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 -0.01"/>
         </collision>
         <collision>
             <geometry>
-                <box size="0.140 0.060 0.040"/>
+                <box size="0.140 0.054 0.040"/>
             </geometry>
             <origin rpy="0 0 0" xyz="0.07 0 0"/>          
         </collision>
         <collision>
             <geometry>
-                <cylinder radius="0.03" length="0.040"/>
+                <cylinder radius="0.027" length="0.040"/>
             </geometry>
             <origin rpy="0.0 0.0 0.0" xyz="0.14 0.0 0.0"/>        
         </collision>
@@ -480,21 +480,21 @@
     <link name="FL-femur">
         <visual>
             <geometry>
-                <cylinder radius="0.037" length="0.060"/>
+                <cylinder radius="0.036" length="0.060"/>
             </geometry>
             <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.01"/>
             <material name="dark_grey"/>      
         </visual>
         <visual>
             <geometry>
-                <box size="0.140 0.060 0.040"/>
+                <box size="0.140 0.054 0.040"/>
             </geometry>
             <origin rpy="0 0 0" xyz="0.07 0 0"/>
             <material name="dark_grey"/>          
         </visual>
         <visual>
             <geometry>
-                <cylinder radius="0.03" length="0.040"/>
+                <cylinder radius="0.027" length="0.040"/>
             </geometry>
             <origin rpy="0.0 0.0 0.0" xyz="0.14 0.0 0.0"/>
             <material name="dark_grey"/>      
@@ -502,19 +502,19 @@
 
         <collision>
             <geometry>
-                <cylinder radius="0.037" length="0.060"/>
+                <cylinder radius="0.036" length="0.060"/>
             </geometry>
             <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.01"/>
         </collision>
         <collision>
             <geometry>
-                <box size="0.140 0.060 0.040"/>
+                <box size="0.140 0.054 0.040"/>
             </geometry>
             <origin rpy="0 0 0" xyz="0.07 0 0"/>          
         </collision>
         <collision>
             <geometry>
-                <cylinder radius="0.03" length="0.040"/>
+                <cylinder radius="0.027" length="0.040"/>
             </geometry>
             <origin rpy="0.0 0.0 0.0" xyz="0.14 0.0 0.0"/>        
         </collision>
@@ -645,21 +645,21 @@
     <link name="RL-femur">
         <visual>
             <geometry>
-                <cylinder radius="0.037" length="0.060"/>
+                <cylinder radius="0.036" length="0.060"/>
             </geometry>
             <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.01"/>
            <material name="dark_grey"/>     
         </visual>
         <visual>
             <geometry>
-                <box size="0.140 0.060 0.040"/>
+                <box size="0.140 0.054 0.040"/>
             </geometry>
             <origin rpy="0 0 0" xyz="0.07 0 0"/>
             <material name="dark_grey"/>          
         </visual>
         <visual>
             <geometry>
-                <cylinder radius="0.03" length="0.040"/>
+                <cylinder radius="0.027" length="0.040"/>
             </geometry>
             <origin rpy="0.0 0.0 0.0" xyz="0.14 0.0 0.0"/>
             <material name="dark_grey"/>       
@@ -667,19 +667,19 @@
 
         <collision>
             <geometry>
-                <cylinder radius="0.037" length="0.060"/>
+                <cylinder radius="0.036" length="0.060"/>
             </geometry>
             <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.01"/>
         </collision>
         <collision>
             <geometry>
-                <box size="0.140 0.060 0.040"/>
+                <box size="0.140 0.054 0.040"/>
             </geometry>
             <origin rpy="0 0 0" xyz="0.07 0 0"/>          
         </collision>
         <collision>
             <geometry>
-                <cylinder radius="0.03" length="0.040"/>
+                <cylinder radius="0.027" length="0.040"/>
             </geometry>
             <origin rpy="0.0 0.0 0.0" xyz="0.14 0.0 0.0"/>        
         </collision>
