@@ -1,12 +1,23 @@
-exemple de commandes pour avoir la GUI :
+Gui : 
+-----
 sudo python3 -m moteus_gui.tview --target 3
 sudo python3 -m moteus_gui.tview --pi3hat-cfg '1=1,2,3;2=4,5,6;3=7,8,9;4=10,11,12' -t 4
 sudo python3 -m moteus_gui.tview --pi3hat-cfg '1=1,2,3;2=4,5,6;3=7,8,9;4=10,11,12' -t 1,2,3,4,5,6,7,8,9,10,11,12
-
 
 to store configuration in moteus GUI
 max current A = 5A (default 100A)
 n>conf write
 
+
+CLI :
+-----
+
 calibrate:
 sudo python3 -m moteus.moteus_tool --target 6 --calibrate --pi3hat-cfg '1=1,2,3;2=4,5,6;3=7,8,9;4=10,11,12'
+...
+
+config (CLI) :
+sudo python3 -m moteus.moteus_tool --target 6 --console --pi3hat-cfg '1=1,2,3;2=4,5,6;3=7,8,9;4=10,11,12'
+conf get servo.pid_position.kp
+d pos -1 0 4 p16
+...

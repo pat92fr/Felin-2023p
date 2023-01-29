@@ -3,6 +3,7 @@ import time
 from src.Controller import Controller
 from src.JoystickInterface import JoystickInterface
 from src.State import State
+from src.Command import Command
 from felin.Config import Configuration
 from felin.Kinematics import four_legs_explicit_inverse_kinematics_BRF
 
@@ -146,7 +147,7 @@ async def main():
     print("Done.")
 
     # OVERRIDE JOINT MAX TORQUE config
-    joint_max_torque = 2.0
+    joint_max_torque = 4.0
     
 
     # autocalibration during  the first 1 seconde
@@ -189,14 +190,19 @@ async def main():
     print("Done.")     
     
     print("Passing to controller...")
+    rate = 0.0
+    counter = 0
+    start_time = time.time()
     while True:
 
+            
         # Read imu data. Orientation will be None if no data was available
         quat_orientation = np.array([1, 0, 0, 0])
         state.quat_orientation = quat_orientation
 
         # build command from joystick
         command = joystick_interface.get_command(state)
+        #command = Command()
 
         # then run controller and compute new state
         controller.run(state, command)
@@ -205,24 +211,30 @@ async def main():
         #print("angle:\n"+str(np.round(np.degrees(state.joint_angles),0)))
         #print("position:\n"+str(np.round(joint_positions_from_angles(state.joint_angles),3)))
         # Hardware Interface, realloc servo matrix to servo ID
+        temp_joint_present_position = np.zeros((3, 4))
+        temp_joint_present_torque = np.zeros((3, 4))
+
         if True:
             temp_joint_positions = joint_positions_from_angles(state.joint_angles)
             commands = [
                 servos[1].make_position(
                     position=temp_joint_positions[0,0],
                     velocity=0.0,
+                    kp_scale=4,
                     maximum_torque=joint_max_torque,
                     query=True
                 ),
                 servos[2].make_position(
                     position=temp_joint_positions[1,0],
                     velocity=0.0,
+                    kp_scale=4,
                     maximum_torque=joint_max_torque,
                     query=True
                 ),
                 servos[3].make_position(
                     position=temp_joint_positions[2,0],
                     velocity=0.0,
+                    kp_scale=4,
                     maximum_torque=joint_max_torque,
                     query=True
                 ),
@@ -230,18 +242,21 @@ async def main():
                 servos[4].make_position(
                     position=temp_joint_positions[0,2],
                     velocity=0.0,
+                    kp_scale=4,
                     maximum_torque=joint_max_torque,
                     query=True
                 ),
                 servos[5].make_position(
                     position=temp_joint_positions[1,2],
                     velocity=0.0,
+                    kp_scale=4,
                     maximum_torque=joint_max_torque,
                     query=True
                 ),
                 servos[6].make_position(
                     position=temp_joint_positions[2,2],
                     velocity=0.0,
+                    kp_scale=4,
                     maximum_torque=joint_max_torque,
                     query=True
                 ),
@@ -249,18 +264,21 @@ async def main():
                 servos[7].make_position(
                     position=temp_joint_positions[0,3],
                     velocity=0.0,
+                    kp_scale=4,
                     maximum_torque=joint_max_torque,
                     query=True
                 ),
                 servos[8].make_position(
                     position=temp_joint_positions[1,3],
                     velocity=0.0,
+                    kp_scale=4,
                     maximum_torque=joint_max_torque,
                     query=True
                 ),
                 servos[9].make_position(
                     position=temp_joint_positions[2,3],
                     velocity=0.0,
+                    kp_scale=4,
                     maximum_torque=joint_max_torque,
                     query=True
                 ),
@@ -268,18 +286,21 @@ async def main():
                 servos[10].make_position(
                     position=temp_joint_positions[0,1],
                     velocity=0.0,
+                    kp_scale=4,
                     maximum_torque=joint_max_torque,
                     query=True
                 ),
                 servos[11].make_position(
                     position=temp_joint_positions[1,1],
                     velocity=0.0,
+                    kp_scale=4,
                     maximum_torque=joint_max_torque,
                     query=True
                 ),
                 servos[12].make_position(
                     position=temp_joint_positions[2,1],
                     velocity=0.0,
+                    kp_scale=4,
                     maximum_torque=joint_max_torque,
                     query=True
                 )
@@ -289,13 +310,26 @@ async def main():
             results = await transport.cycle(commands)
             
             # decode joint feedback
-            temp_joint_present_position = np.zeros((3, 4))
+
             for result in results:
                 temp_joint_present_position[
                     axis_id_from_joint_id[result.id],
                     leg_id_from_joint_id[result.id]
                 ] = result.values[moteus.Register.POSITION]
+            for result in results:
+                temp_joint_present_torque[
+                    axis_id_from_joint_id[result.id],
+                    leg_id_from_joint_id[result.id]
+                ] = result.values[moteus.Register.TORQUE]
             
+        # stats
+        counter += 1
+        if counter%100 == 0:
+            rate = 0.5*rate + 0.5*counter/(time.time()-start_time)
+            print("rate:"+str(round(rate,1))+"Hz")
+            print("torque:"+str(temp_joint_present_torque[2,2])+"Nm")
+
+
             # update state feedback
 #             # FR
 #             joint_position_offsets[0,0] = temp_joint_present_position[0,0]
@@ -320,7 +354,8 @@ async def main():
 #                 f"{result.values[moteus.Register.TORQUE]})"
 #                 for result in results))
 
-        await asyncio.sleep(config.dt)
+        #await asyncio.sleep(0.0005)
+        #await asyncio.sleep(config.dt)
         #await asyncio.sleep(1)
         
 if __name__ == '__main__':
