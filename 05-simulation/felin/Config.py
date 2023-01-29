@@ -59,7 +59,7 @@ class Configuration:
         self.STANCE_X =  0.172
         self.STANCE_Y =  0.117 #0.125        
         self.STANCE_Z = -0.190
-        self.STANCE_X_SHIFT   = 0.018
+        self.STANCE_X_SHIFT   = 0.000 # 0.018
 
         #################### SWING ######################
         self.z_coeffs = None

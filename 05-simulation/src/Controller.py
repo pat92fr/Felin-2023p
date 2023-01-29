@@ -81,8 +81,35 @@ class Controller:
 
             # transition to REST
             if command.activate_event:
-                state.behavior_state = BehaviorState.REST
-        
+                state.behavior_state = BehaviorState.STANDING_UP
+
+        elif state.behavior_state == BehaviorState.STANDING_UP:
+
+            # change position from crouch to rest with speed
+            speed = np.array([0.025,0.005,0.025])
+            for leg_index in range(4):
+                state.foot_locations[:,leg_index] = reach(state.foot_locations[:,leg_index],self.config.default_stance[:,leg_index],speed,self.config.dt)
+
+            state.joint_angles = self.inverse_kinematics(state.foot_locations, self.config)            
+
+            if np.linalg.norm(state.foot_locations-self.config.default_stance) < 0.001:
+                state.behavior_state = BehaviorState.REST  
+                state.height = self.config.STANCE_Z
+
+        elif state.behavior_state == BehaviorState.SITTING_DOWN:
+
+            # change position from crouch to rest with speed
+            speed = np.array([0.005,0.005,0.025])
+            for leg_index in range(4):
+                state.foot_locations[:,leg_index] = reach(state.foot_locations[:,leg_index],self.config.default_crouch[:,leg_index],speed,self.config.dt)
+
+            state.joint_angles = self.inverse_kinematics(state.foot_locations, self.config)            
+
+            if np.linalg.norm(state.foot_locations-self.config.default_crouch) < 0.001:
+                state.behavior_state = BehaviorState.CROUCH
+                state.height = self.config.CROUCH_Z
+
+
         elif state.behavior_state == BehaviorState.TROT:
             state.foot_locations, contact_modes = self.step_gait(
                 state,
@@ -120,7 +147,7 @@ class Controller:
 
             # transition to CROUCH
             if command.activate_event:
-                state.behavior_state = BehaviorState.CROUCH
+                state.behavior_state = BehaviorState.SITTING_DOWN
 
             # transition to TROT
             if command.trot_event:
@@ -181,7 +208,7 @@ class Controller:
 
             # transition to CROUCH
             if command.activate_event:
-                state.behavior_state = BehaviorState.CROUCH
+                state.behavior_state = BehaviorState.SITTING_DOWN
 
             # transition to TROT
             if command.trot_event:
@@ -196,7 +223,17 @@ class Controller:
         state.roll = command.roll
 
         # update body height according command and maximum body Z speed
-        if state.height > command.height:
-            state.height = max( command.height, state.height-self.config.z_speed*self.config.dt)
-        if state.height < command.height:
-            state.height = min( command.height, state.height+self.config.z_speed*self.config.dt)
+        # if state.height > command.height:
+        #     state.height = max( command.height, state.height-self.config.z_speed*self.config.dt)
+        # if state.height < command.height:
+        #     state.height = min( command.height, state.height+self.config.z_speed*self.config.dt)
+
+
+## from one pose to another one, with speed control
+def reach(pose,target,speed,dt):
+    delta = target-pose
+    delta_abs = np.absolute(delta)
+    max_delta_abs = speed*dt
+    real_delta = np.minimum(delta_abs,max_delta_abs)
+    return pose + np.sign(delta)*real_delta
+    

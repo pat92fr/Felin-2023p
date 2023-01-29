@@ -27,7 +27,9 @@ class State:
 class BehaviorState(Enum):
     DEACTIVATED = -1
     CROUCH = 0
-    REST = 1
-    TROT = 2
-    HOP = 3
-    FINISHHOP = 4
+    STANDING_UP = 1
+    REST = 2
+    TROT = 3
+    HOP = 4
+    FINISHHOP = 5
+    SITTING_DOWN = 6
